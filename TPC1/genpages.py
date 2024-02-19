@@ -15,22 +15,33 @@ def gen_html_pages(root, id):
 
     corpo = root.find('.//corpo')
 
-    figures = root.findall('./figura')
+    paragraphs = corpo.findall('.//para')
+    paragraphs_list = []
+    for p in paragraphs:
+        paragraphs_list.append(p.text)
+
+    paragraphs_div = ""
+    for p in paragraphs_list:
+        para = f"""
+                    <p>{p}<p>\n
+                """
+        paragraphs_div += para
+
+    figures = root.findall('.//figura')
     figures_div = gen_images(figures)
-    print(figures_div)
 
     houses_list = corpo.findall('.//lista-casas')
     houses_div = "\n"
     for lists  in houses_list:
         houses_div += gen_houses(lists) + "\n"
-
-    print(houses_div)
         
     with open(file, 'r') as f:
         html_content = f.read()
 
     modified_content = html_content.replace("{NAME}", nome)
     modified_content = modified_content.replace("{HOMES}", houses_div)
+    modified_content = modified_content.replace("{FIGURES}", figures_div)
+    modified_content = modified_content.replace("{DETAILS}", paragraphs_div)
 
     with open(file, 'w') as f:
         f.write(modified_content)
@@ -47,7 +58,7 @@ def gen_images(figures):
             img_src = img.attrib.get('path', '')
             img_src = img_src.replace("..", "../public")
             figure = f"""<div>
-                            <img src="{img_src}" />
+                            <img src="{img_src}" alt="No image found" />
                             <p>{caption}</p>
                          </div>\n"""
             result += figure
