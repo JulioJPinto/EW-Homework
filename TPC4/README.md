@@ -12,7 +12,7 @@ Neste trabalho, recebemos o ficheiro `compositores.json` com informações sobre
 
 Para correr o `json-server`:
 ```bash
-$ json-server --watch compositores.json # ou caminho para o ficheiro
+$ json-server --watch compositores.json
 ```
 
 Correr o servidor `node`:

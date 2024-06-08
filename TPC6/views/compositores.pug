@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h2 Compositores
+    a(href="/compositores/novo") Adicionar
+    .w3-container
+        table.w3-table-all
+            thead
+                tr
+                    each heading in ['Id', 'Nome', 'Período', 'Data de Nascimento', 'Data de Óbito']
+                        th= heading
+            tbody
+                each compositor in compositores
+                    tr
+                        td
+                            a(href=`/compositores/${compositor.id}`)= compositor.id
+                        each field in [compositor.nome, compositor.periodo, compositor.dataNasc, compositor.dataObito]
+                            td= field
+                        td
+                            a.w3-button.w3-blue(href=`/compositores/editar/${compositor.id}`) Editar
+                            a.w3-button.w3-red(href=`/compositores/apagar/${compositor.id}`) Apagar

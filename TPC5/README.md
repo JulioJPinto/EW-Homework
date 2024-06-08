@@ -11,7 +11,7 @@ Neste trabalho, tinhamos que adaptar o TPC4 para utilizar _views_ feitas em Pug 
 
 Para correr o `json-server`:
 ```bash
-$ json-server --watch compositores.json # ou caminho para o ficheiro
+$ json-server --watch compositores.json
 ```
 
 Correr o servidor `node`:
