@@ -16,4 +16,6 @@ Para correr o Projeto é necessário no repo fazer o seguinte comando:
 $ git submodule update --init --recursive
 ```
 
+Se por algum motivo não funcionar, o projeto está público [aqui](https://github.com/JulioJPinto/EW-Project)
+
 
