@@ -1,23 +1,62 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
-var Pessoa = require("../controllers/pessoas");
+var modalidadeController = require("../controllers/modalidade");
 
-// GET modalidades listing
-router.get("/", function (req, res, next) {
-  Pessoa.listModalidades()
-    .then((dados) => res.jsonp(dados))
-    .catch((error) =>
-      res.status(500).jsonp({ error: "There was an error with the server" }),
-    );
+
+router.get('/:modalidade', function(req, res, next) {
+    modalidadeController.getPessoasPerModalidade(req.params.modalidade)
+        .then(function(modalidades) {
+            res.json(modalidades);
+        })
+        .catch(function(err) {
+            next(err);
+        });
 });
 
-// GET pessoa by id
-router.get("/:modalidade", function (req, res, next) {
-  Pessoa.listPessoasByModalidade(req.params.modalidade)
-    .then((dados) => res.jsonp(dados))
-    .catch((error) =>
-      res.status(500).jsonp({ error: "There was an error with the server" }),
-    );
+router.get('/', function(req, res, next) {
+    modalidadeController.listPerOrder()
+        .then(function(modalidades) {
+            res.json(modalidades);
+        })
+        .catch(function(err) {
+            next(err);
+        });
+  });
+
+
+router.post('/new', async (req, res) => {
+    try {
+        const modalidade = await modalidadeController.insert(req.body);
+        res.status(201).json(modalidade);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
 });
+
+router.put('/:id', async (req, res) => {
+    try {
+        const modalidade = await modalidadeController.update(req.params.id, req.body);
+        res.json(modalidade);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        await modalidadeController.remove(req.params.id);
+        res.json({ message: 'Modalidade deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.post('/add/:nome', function(req, res) {
+    modalidadeController.addPerson(req.params.nome, req.body)
+      .then( resposta => {
+        res.status(200).jsonp(resposta)
+      })
+  });
+
 
 module.exports = router;

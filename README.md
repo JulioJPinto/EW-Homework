@@ -6,7 +6,7 @@ Aqui serão armazenados todos os trabalhos da Unidade Curricular de Engenharia W
 
 - **Nome:** Júlio José Medeiros Pereira Pinto
 - **ID:** A100742
-- **Foto:**\
+- **Foto:**
 ![Fotografia do aluno](image.png)
 
 ## Projeto2024
